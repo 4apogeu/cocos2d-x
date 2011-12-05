@@ -138,7 +138,6 @@
     <ClCompile Include="..\dynamics\joints\b2GearJoint.cpp" />
     <ClCompile Include="..\dynamics\b2Island.cpp" />
     <ClCompile Include="..\dynamics\joints\b2Joint.cpp" />
-    <ClCompile Include="..\dynamics\joints\b2LineJoint.cpp" />
     <ClCompile Include="..\common\b2Math.cpp" />
     <ClCompile Include="..\dynamics\joints\b2MouseJoint.cpp" />
     <ClCompile Include="..\dynamics\contacts\b2PolygonAndCircleContact.cpp" />
@@ -150,7 +149,6 @@
     <ClCompile Include="..\common\b2Settings.cpp" />
     <ClCompile Include="..\common\b2StackAllocator.cpp" />
     <ClCompile Include="..\collision\b2TimeOfImpact.cpp" />
-    <ClCompile Include="..\dynamics\contacts\b2TOISolver.cpp" />
     <ClCompile Include="..\dynamics\joints\b2WeldJoint.cpp" />
     <ClCompile Include="..\dynamics\b2World.cpp" />
     <ClCompile Include="..\dynamics\b2WorldCallbacks.cpp" />
