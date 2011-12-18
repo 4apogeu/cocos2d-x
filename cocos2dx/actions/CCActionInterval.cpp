@@ -76,7 +76,7 @@ CCObject* CCActionInterval::copyWithZone(CCZone *pZone)
 	else
 	{
 		// action's base class , must be called using __super::copyWithZone(), after overriding from derived class
-		assert(0);  
+		CCAssert(0, "");  
 
 		pCopy = new CCActionInterval();
 		pZone = pNewZone = new CCZone(pCopy);
@@ -117,13 +117,13 @@ void CCActionInterval::setAmplitudeRate(CGFloat amp)
 {
     CC_UNUSED_PARAM(amp);
 	// Abstract class needs implementation
-	assert(0);
+	CCAssert(0, "");
 }
 
 CGFloat CCActionInterval::getAmplitudeRate(void)
 {
 	// Abstract class needs implementation
-	assert(0);
+	CCAssert(0, "");
 
 	return 0;
 }
@@ -198,8 +198,8 @@ CCFiniteTimeAction* CCSequence::actionsWithArray(CCArray *actions)
 
 bool CCSequence::initOneTwo(CCFiniteTimeAction *pActionOne, CCFiniteTimeAction *pActionTwo)
 {
-	assert(pActionOne != NULL);
-	assert(pActionTwo != NULL);
+	CCAssert(pActionOne != NULL, "");
+	CCAssert(pActionTwo != NULL, "");
 
 	ccTime d = pActionOne->getDuration() + pActionTwo->getDuration();
 	CCActionInterval::initWithDuration(d);
@@ -459,7 +459,7 @@ CCRepeatForever *CCRepeatForever::actionWithAction(CCActionInterval *pAction)
 
 bool CCRepeatForever::initWithAction(CCActionInterval *pAction)
 {
-	assert(pAction != NULL);
+	CCAssert(pAction != NULL, "");
 	pAction->retain();
 	m_pInnerAction = pAction;
 	return true;
@@ -563,8 +563,8 @@ CCSpawn* CCSpawn::actionOneTwo(CCFiniteTimeAction *pAction1, CCFiniteTimeAction 
 
 bool CCSpawn:: initOneTwo(CCFiniteTimeAction *pAction1, CCFiniteTimeAction *pAction2)
 {
-	assert(pAction1 != NULL);
-	assert(pAction2 != NULL);
+	CCAssert(pAction1 != NULL, "");
+	CCAssert(pAction2 != NULL, "");
 
 	bool bRet = false;
 
@@ -1601,7 +1601,7 @@ CCObject* CCFadeIn::copyWithZone(CCZone *pZone)
 
 void CCFadeIn::update(ccTime time)
 {
-	CCRGBAProtocol *pRGBAProtocol = m_pTarget->convertToRGBAProtocol();
+	CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(m_pTarget);
 	if (pRGBAProtocol)
 	{
         pRGBAProtocol->setOpacity((GLubyte)(255 * time));
@@ -1651,7 +1651,7 @@ CCObject* CCFadeOut::copyWithZone(CCZone *pZone)
 
 void CCFadeOut::update(ccTime time)
 {
-	CCRGBAProtocol *pRGBAProtocol = m_pTarget->convertToRGBAProtocol();
+	CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(m_pTarget);
 	if (pRGBAProtocol)
 	{
 		pRGBAProtocol->setOpacity(GLubyte(255 * (1 - time)));
@@ -1714,7 +1714,7 @@ void CCFadeTo::startWithTarget(CCNode *pTarget)
 {
 	CCActionInterval::startWithTarget(pTarget);
 
-	CCRGBAProtocol *pRGBAProtocol = pTarget->convertToRGBAProtocol();
+	CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(pTarget);
 	if (pRGBAProtocol)
 	{
 		m_fromOpacity = pRGBAProtocol->getOpacity();
@@ -1724,7 +1724,7 @@ void CCFadeTo::startWithTarget(CCNode *pTarget)
 
 void CCFadeTo::update(ccTime time)
 {
-	CCRGBAProtocol *pRGBAProtocol = m_pTarget->convertToRGBAProtocol();
+	CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(m_pTarget);
 	if (pRGBAProtocol)
 	{
 		pRGBAProtocol->setOpacity((GLubyte)(m_fromOpacity + (m_toOpacity - m_fromOpacity) * time));
@@ -1781,7 +1781,7 @@ CCObject* CCTintTo::copyWithZone(CCZone *pZone)
 void CCTintTo::startWithTarget(CCNode *pTarget)
 {
 	CCActionInterval::startWithTarget(pTarget);
-    CCRGBAProtocol *pRGBAProtocol = m_pTarget->convertToRGBAProtocol();
+    CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(m_pTarget);
 	if (pRGBAProtocol)
 	{
 		m_from = pRGBAProtocol->getColor();
@@ -1791,7 +1791,7 @@ void CCTintTo::startWithTarget(CCNode *pTarget)
 
 void CCTintTo::update(ccTime time)
 {
-	CCRGBAProtocol *pRGBAProtocol = m_pTarget->convertToRGBAProtocol();
+	CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(m_pTarget);
 	if (pRGBAProtocol)
 	{
 		pRGBAProtocol->setColor(ccc3(GLubyte(m_from.r + (m_to.r - m_from.r) * time), 
@@ -1853,7 +1853,7 @@ void CCTintBy::startWithTarget(CCNode *pTarget)
 {
 	CCActionInterval::startWithTarget(pTarget);
 
-	CCRGBAProtocol *pRGBAProtocol = pTarget->convertToRGBAProtocol();
+	CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(pTarget);
 	if (pRGBAProtocol)
 	{
 		ccColor3B color = pRGBAProtocol->getColor();
@@ -1865,7 +1865,7 @@ void CCTintBy::startWithTarget(CCNode *pTarget)
 
 void CCTintBy::update(ccTime time)
 {
-	CCRGBAProtocol *pRGBAProtocol = m_pTarget->convertToRGBAProtocol();
+	CCRGBAProtocol *pRGBAProtocol = dynamic_cast<CCRGBAProtocol*>(m_pTarget);
 	if (pRGBAProtocol)
 	{
 		pRGBAProtocol->setColor(ccc3((GLubyte)(m_fromR + m_deltaR * time),
@@ -1941,8 +1941,8 @@ CCReverseTime* CCReverseTime::actionWithAction(CCFiniteTimeAction *pAction)
 
 bool CCReverseTime::initWithAction(CCFiniteTimeAction *pAction)
 {
-	assert(pAction != NULL);
-	assert(pAction != m_pOther);
+	CCAssert(pAction != NULL, "");
+	CCAssert(pAction != m_pOther, "");
 
 	if (CCActionInterval::initWithDuration(pAction->getDuration()))
 	{
@@ -2030,7 +2030,7 @@ CCAnimate* CCAnimate::actionWithAnimation(CCAnimation *pAnimation)
 
 bool CCAnimate::initWithAnimation(CCAnimation *pAnimation)
 {
-	assert(pAnimation != NULL);
+	CCAssert(pAnimation != NULL, "");
 
 	return initWithAnimation(pAnimation, true);
 }
@@ -2046,7 +2046,7 @@ CCAnimate* CCAnimate::actionWithAnimation(CCAnimation *pAnimation, bool bRestore
 
 bool CCAnimate::initWithAnimation(CCAnimation *pAnimation, bool bRestoreOriginalFrame)
 {
-	assert(pAnimation);
+	CCAssert(pAnimation, "");
 
 	if (CCActionInterval::initWithDuration(pAnimation->getFrames()->count() * pAnimation->getDelay()))
 	{
@@ -2072,7 +2072,7 @@ CCAnimate* CCAnimate::actionWithDuration(ccTime duration, CCAnimation *pAnimatio
 
 bool CCAnimate::initWithDuration(ccTime duration, CCAnimation *pAnimation, bool bRestoreOriginalFrame)
 {
-	assert(pAnimation != NULL);
+	CCAssert(pAnimation != NULL, "");
 
 	if (CCActionInterval::initWithDuration(duration))
 	{

@@ -39,7 +39,6 @@ CCLayer::CCLayer()
 ,m_bIsAccelerometerEnabled(false)
 ,m_bIsKeypadEnabled(false)
 {
-	m_eTouchDelegateType = ccTouchDelegateAllBit;
 	setAnchorPoint(ccp(0.5f, 0.5f));
 	m_bIsRelativeAnchorPoint = false;
 }
@@ -84,26 +83,6 @@ CCLayer *CCLayer::node()
 void CCLayer::registerWithTouchDispatcher()
 {
 	CCTouchDispatcher::sharedDispatcher()->addStandardDelegate(this,0);
-}
-
-void CCLayer::destroy(void)
-{
-	this->release();
-}
-
-void CCLayer::keep(void)
-{
-	this->retain();
-}
-
-void CCLayer::KeypadDestroy()
-{
-    this->release();
-}
-
-void CCLayer::KeypadKeep()
-{
-    this->retain();
 }
 
 /// isTouchEnabled getter
@@ -665,7 +644,7 @@ CCLayerMultiplex * CCLayerMultiplex::layerWithLayer(CCLayer* layer)
 }
 void CCLayerMultiplex::addLayer(CCLayer* layer)
 {
-	assert(m_pLayers);
+	CCAssert(m_pLayers, "");
 	m_pLayers->addObject(layer);
 }
 

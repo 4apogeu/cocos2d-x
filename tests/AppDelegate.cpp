@@ -2,10 +2,10 @@
 
 #include "cocos2d.h"
 #include "tests/controller.h"
-//#include "SimpleAudioEngine.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
-//using namespace CocosDenshion;
+using namespace CocosDenshion;
 
 AppDelegate::AppDelegate()
 {
@@ -58,7 +58,7 @@ bool AppDelegate::initInstance()
 
 #endif
 	
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_AIRPLAY)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
 		CCDirector::sharedDirector()->setDeviceOrientation(CCDeviceOrientationLandscapeLeft);
 #endif
 
@@ -74,6 +74,21 @@ bool AppDelegate::initInstance()
 		CCFileUtils::setResourcePath("../Res/");
 
 #endif  // CC_PLATFORM_LINUX
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_BADA)
+
+		CCEGLView * pMainWnd = new CCEGLView();
+		CC_BREAK_IF(! pMainWnd|| ! pMainWnd->Create(this, 480, 320));
+		pMainWnd->setDeviceOrientation(Osp::Ui::ORIENTATION_LANDSCAPE);
+		CCFileUtils::setResourcePath("/Res/");
+
+#endif  // CC_PLATFORM_BADA
+
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_QNX)
+		CCEGLView * pMainWnd = new CCEGLView();
+		CC_BREAK_IF(! pMainWnd|| ! pMainWnd->Create(480, 320));
+		CCFileUtils::setResourcePath("app/native/Resource");
+#endif // CC_PLATFORM_QNX
 
         bRet = true;
     } while (0);
@@ -113,12 +128,14 @@ bool AppDelegate::applicationDidFinishLaunching()
 void AppDelegate::applicationDidEnterBackground()
 {
     CCDirector::sharedDirector()->pause();
-//    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+	SimpleAudioEngine::sharedEngine()->pauseAllEffects();
 }
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground()
 {
     CCDirector::sharedDirector()->resume();
-//    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+	SimpleAudioEngine::sharedEngine()->resumeAllEffects();
 }

@@ -41,16 +41,6 @@ public class ApplicationDemo extends Cocos2dxActivity{
 		setContentView(R.layout.helloworld_demo);
         mGLView = (Cocos2dxGLSurfaceView) findViewById(R.id.helloworld_gl_surfaceview);
         mGLView.setTextField((EditText)findViewById(R.id.textField));
-
-        // Get the size of the mGLView after the layout happens
-        mGLView.post(new Runnable() {
-            
-            @Override
-            public void run() {
-                Cocos2dxActivity.screenHeight = mGLView.getHeight();
-                Cocos2dxActivity.screenWidth = mGLView.getWidth();
-            }
-        });
 	}
 	
 	 @Override
@@ -68,6 +58,7 @@ public class ApplicationDemo extends Cocos2dxActivity{
      static {
     	 System.loadLibrary("cocos2d");
     	 System.loadLibrary("cocosdenshion");
+    	 System.loadLibrary("game_logic");
          System.loadLibrary("helloworld");
      }
 }

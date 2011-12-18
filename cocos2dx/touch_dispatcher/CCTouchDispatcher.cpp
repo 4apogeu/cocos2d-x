@@ -31,7 +31,6 @@ THE SOFTWARE.
 #include "CCTexture2D.h"
 #include "support/data_support/ccCArray.h"
 
-#include <assert.h>
 #include <algorithm>
 
 /**
@@ -131,7 +130,7 @@ void CCTouchDispatcher::forceAddHandler(CCTouchHandler *pHandler, CCMutableArray
  
  		    if (h->getDelegate() == pHandler->getDelegate())
  		    {
- 			    assert(0);
+ 			    CCAssert(0, "");
  			    return;
  		    }
          }
@@ -141,9 +140,7 @@ void CCTouchDispatcher::forceAddHandler(CCTouchHandler *pHandler, CCMutableArray
 }
 
 void CCTouchDispatcher::addStandardDelegate(CCTouchDelegate *pDelegate, int nPriority)
-{
-	pDelegate->m_eTouchDelegateType = ccTouchDelegateStandardBit;
-	
+{	
 	CCTouchHandler *pHandler = CCStandardTouchHandler::handlerWithDelegate(pDelegate, nPriority);
 	if (! m_bLocked)
 	{
@@ -157,9 +154,7 @@ void CCTouchDispatcher::addStandardDelegate(CCTouchDelegate *pDelegate, int nPri
 }
 
 void CCTouchDispatcher::addTargetedDelegate(CCTouchDelegate *pDelegate, int nPriority, bool bSwallowsTouches)
-{
-	pDelegate->m_eTouchDelegateType = ccTouchDelegateTargetedBit;
-	
+{	
 	CCTouchHandler *pHandler = CCTargetedTouchHandler::handlerWithDelegate(pDelegate, nPriority, bSwallowsTouches);
 	if (! m_bLocked)
 	{
@@ -269,13 +264,13 @@ void CCTouchDispatcher::rearrangeHandlers(CCMutableArray<CCTouchHandler*> *pArra
 
 void CCTouchDispatcher::setPriority(int nPriority, CCTouchDelegate *pDelegate)
 {
-    assert(pDelegate != NULL);
+    CCAssert(pDelegate != NULL, "");
 
 	CCTouchHandler *handler = NULL;
 
 	handler = this->findHandler(pDelegate);
 
-	assert(handler != NULL);
+	CCAssert(handler != NULL, "");
 
 	handler->setPriority(nPriority);
 
@@ -288,7 +283,7 @@ void CCTouchDispatcher::setPriority(int nPriority, CCTouchDelegate *pDelegate)
 //
 void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int uIndex)
 {
-	assert(uIndex >= 0 && uIndex < 4);
+	CCAssert(uIndex >= 0 && uIndex < 4, "");
 
 	CCSet *pMutableTouches;
 	m_bLocked = true;
@@ -434,7 +429,7 @@ void CCTouchDispatcher::touches(CCSet *pTouches, CCEvent *pEvent, unsigned int u
                 break;
             }
 
-			if (pHandler->getDelegate()->getTouchDelegateType() & ccTouchDelegateTargetedBit)
+		    if (dynamic_cast<CCTargetedTouchHandler*>(pHandler) != NULL)
 			{				
 				forceAddHandler(pHandler, m_pTargetedHandlers);
 			}

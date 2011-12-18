@@ -51,6 +51,8 @@ CCNode::CCNode(void)
 , m_fScaleY(1.0f)
 , m_tPosition(CCPointZero)
 , m_tPositionInPixels(CCPointZero)
+, m_fSkewX(0.0)
+, m_fSkewY(0.0)
 // children (lazy allocs)
 , m_pChildren(NULL)
 // lazy alloc
@@ -70,8 +72,6 @@ CCNode::CCNode(void)
 , m_pUserData(NULL)
 , m_bIsTransformDirty(true)
 , m_bIsInverseDirty(true)
-, m_fSkewX(0.0)
-, m_fSkewY(0.0)
 #ifdef CC_NODE_TRANSFORM_USING_AFFINE_MATRIX
 , m_bIsTransformGLDirty(true)
 #endif
@@ -718,7 +718,7 @@ void CCNode::reorderChild(CCNode *child, int zOrder)
 
  void CCNode::draw()
  {
-	 //assert(0);
+	 //CCAssert(0);
  	// override me
  	// Only use- this function to draw your staff.
  	// DON'T draw your stuff outside this method
@@ -989,16 +989,6 @@ void CCNode::pauseSchedulerAndActions()
 {
 	CCScheduler::sharedScheduler()->pauseTarget(this);
 	CCActionManager::sharedManager()->pauseTarget(this);
-}
-
-void CCNode::selectorProtocolRetain(void)
-{
-	retain();
-}
-
-void CCNode::selectorProtocolRelease(void)
-{
-	release();
 }
 
 CCAffineTransform CCNode::nodeToParentTransform(void)

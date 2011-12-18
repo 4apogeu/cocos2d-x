@@ -21,8 +21,8 @@
 #include "TileMapTest/TileMapTest.h"
 #include "IntervalTest/IntervalTest.h"
 #include "LabelTest/LabelTest.h"
-// havn't implement on airplay
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_AIRPLAY)
+// havn't implement on marmalade
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_MARMALADE)
 #include "TextInputTest/TextInputTest.h"
 #endif
 #include "SpriteTest/SpriteTest.h"
@@ -44,16 +44,17 @@
 #include "Texture2dTest/Texture2dTest.h"
 #include "FontTest/FontTest.h"
 #include "CurrentLanguageTest/CurrentLanguageTest.h"
+#include "TextureCacheTest/TextureCacheTest.h"
 
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_AIRPLAY)
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_MARMALADE)
 	#include "ChipmunkTest/cocos2dChipmunkDemo.h"
 #else
-#ifdef AIRPLAYUSECHIPMUNK
-#if	(AIRPLAYUSECHIPMUNK == 1)
+#ifdef MARMALADEUSECHIPMUNK
+#if	(MARMALADEUSECHIPMUNK == 1)
 	#include "ChipmunkTest/cocos2dChipmunkDemo.h"
 #endif
 #endif
-#endif // (CC_TARGET_PLATFORM != CC_PLATFORM_AIRPLAY)
+#endif // (CC_TARGET_PLATFORM != CC_PLATFORM_MARMALADE)
 
 enum
 {
@@ -98,6 +99,7 @@ enum
     TEST_BUGS,
 	TEST_FONTS,
 	TEST_CURRENT_LANGUAGE,
+	TEST_TEXTURECACHE,
 
     TESTS_COUNT,
 };
@@ -144,6 +146,7 @@ const std::string g_aTestNames[TESTS_COUNT] = {
     "BugsTest",
 	"FontTest",
 	"CurrentLanguageTest",
+	"TextureCacheTest"
 };
 
 #endif

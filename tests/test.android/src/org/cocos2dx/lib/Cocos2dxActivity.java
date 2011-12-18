@@ -24,10 +24,6 @@ THE SOFTWARE.
 
 package org.cocos2dx.lib;
 
-
-
-import org.cocos2dx.tests.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -42,8 +38,6 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 public class Cocos2dxActivity extends Activity{
-	public static int screenWidth;
-    public static int screenHeight;
     private static Cocos2dxMusic backgroundMusicPlayer;
     private static Cocos2dxSound soundPlayer;
     private static Cocos2dxAccelerometer accelerometer;
@@ -61,8 +55,6 @@ public class Cocos2dxActivity extends Activity{
         // get frame size
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
-        screenWidth = dm.widthPixels;
-        screenHeight = dm.heightPixels;
         accelerometer = new Cocos2dxAccelerometer(this);
 
         // init media player and sound player
@@ -150,6 +142,14 @@ public class Cocos2dxActivity extends Activity{
     	soundPlayer.stopEffect(soundId);
     }
     
+    public static void pauseEffect(int soundId){
+    	soundPlayer.pauseEffect(soundId);
+    }
+    
+    public static void resumeEffect(int soundId){
+    	soundPlayer.resumeEffect(soundId);
+    }
+    
     public static float getEffectsVolume(){
     	return soundPlayer.getEffectsVolume();
     }
@@ -164,6 +164,18 @@ public class Cocos2dxActivity extends Activity{
     
     public static void unloadEffect(String path){
     	soundPlayer.unloadEffect(path);
+    }
+    
+    public static void stopAllEffects(){
+    	soundPlayer.stopAllEffects();
+    }
+    
+    public static void pauseAllEffects(){
+    	soundPlayer.pauseAllEffects();
+    }
+    
+    public static void resumeAllEffects(){
+    	soundPlayer.resumeAllEffects();
     }
     
     public static void end(){
@@ -185,11 +197,6 @@ public class Cocos2dxActivity extends Activity{
     	if (accelerometerEnabled) {
     	    accelerometer.enable();
     	}
-    	
-    	// resume background music
-    	resumeBackgroundMusic();
-    	
-    	soundPlayer.resumeAllEffect();
     }
 
     @Override
@@ -198,11 +205,6 @@ public class Cocos2dxActivity extends Activity{
     	if (accelerometerEnabled) {
     	    accelerometer.disable();
     	}
-    	
-    	// pause background music
-    	pauseBackgroundMusic();
-  
-    	soundPlayer.pauseAllEffect();
     }
 
     protected void setPackageName(String packageName) {
@@ -228,7 +230,7 @@ public class Cocos2dxActivity extends Activity{
     	Dialog dialog = new AlertDialog.Builder(this)
 	    .setTitle(title)
 	    .setMessage(message)
-	    .setPositiveButton(R.string.button_ok, 
+	    .setPositiveButton("Ok",
 	    new DialogInterface.OnClickListener()
 	    {
 	    	public void onClick(DialogInterface dialog, int whichButton){

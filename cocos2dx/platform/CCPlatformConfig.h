@@ -42,8 +42,10 @@ build for which target platform
 #define CC_PLATFORM_ANDROID            2
 #define CC_PLATFORM_WOPHONE            3
 #define CC_PLATFORM_WIN32              4
-#define CC_PLATFORM_AIRPLAY            5
-#define CC_PLATFORM_LINUX              7
+#define CC_PLATFORM_MARMALADE          5
+#define CC_PLATFORM_LINUX              6
+#define CC_PLATFORM_BADA               7
+#define CC_PLATFORM_QNX				   8
 
 // Determine tartet platform by compile environment macro.
 #define CC_TARGET_PLATFORM             CC_PLATFORM_UNKNOWN
@@ -88,11 +90,23 @@ build for which target platform
     #define CC_TARGET_PLATFORM         CC_PLATFORM_LINUX
 #endif
 
-// airplay
-#if ! CC_TARGET_PLATFORM && defined(AIRPLAY)
+// marmalade
+#if ! CC_TARGET_PLATFORM && defined(MARMALADE)
 #undef  CC_TARGET_PLATFORM
-#define CC_TARGET_PLATFORM         CC_PLATFORM_AIRPLAY
+#define CC_TARGET_PLATFORM         CC_PLATFORM_MARMALADE
 #endif
+// bada
+#if ! CC_TARGET_PLATFORM && defined(SHP)
+#undef  CC_TARGET_PLATFORM
+#define CC_TARGET_PLATFORM         CC_PLATFORM_BADA
+#endif
+
+// qnx
+#if ! CC_TARGET_PLATFORM && defined(__QNX__)
+    #undef  CC_TARGET_PLATFORM
+    #define CC_TARGET_PLATFORM     CC_PLATFORM_QNX
+#endif
+
 //////////////////////////////////////////////////////////////////////////
 // user configure
 //////////////////////////////////////////////////////////////////////////
@@ -118,14 +132,25 @@ build for which target platform
     #define CC_TARGET_PLATFORM         CC_PLATFORM_WIN32
 #endif
 
-#if defined(CC_UNDER_AIRPLAY)
+#if defined(CC_UNDER_MARMALADE)
 #undef  CC_TARGET_PLATFORM
-#define CC_TARGET_PLATFORM			   CC_PLATFORM_AIRPLAY
+#define CC_TARGET_PLATFORM			   CC_PLATFORM_MARMALADE
 #endif
 #if defined(CC_UNDER_LINUX)
 #undef  CC_TARGET_PLATFORM
 #define CC_TARGET_PLATFORM			   CC_PLATFORM_LINUX
 #endif
+
+#if defined(CC_UNDER_BADA)
+#undef  CC_TARGET_PLATFORM
+#define CC_TARGET_PLATFORM			   CC_PLATFORM_BADA
+#endif
+
+#if defined(CC_UNDER_QNX)
+#undef  CC_TARGET_PLATFORM
+#define CC_TARGET_PLATFORM        	  CC_PLATFORM_QNX
+#endif
+
 // Check user assigned supportive of multi-thread
 #if defined(CC_ENABLE_MULTITHREAD)
     #undef  CC_SUPPORT_MULTITHREAD

@@ -139,13 +139,13 @@ public:
 	 IMPORTANT: Only valid if it is rendered using an CCSpriteSheet.
 	 @since v0.99.0
 	 */
-	inline ccHonorParentTransform getHornorParentTransform(void) { return m_eHonorParentTransform; }
+	inline ccHonorParentTransform getHonorParentTransform(void) { return m_eHonorParentTransform; }
 	/** whether or not to transform according to its parent transformations.
 	Useful for health bars. eg: Don't rotate the health bar, even if the parent rotates.
 	IMPORTANT: Only valid if it is rendered using an CCSpriteSheet.
 	@since v0.99.0
 	*/
-	inline void setHornorParentTransform(ccHonorParentTransform eHonorParentTransform) { m_eHonorParentTransform = eHonorParentTransform; }
+	inline void setHonorParentTransform(ccHonorParentTransform eHonorParentTransform) { m_eHonorParentTransform = eHonorParentTransform; }
 
 	/** Get offset position of the sprite. Calculated automatically by editors like Zwoptex.
 	 @since v0.99.0
@@ -196,7 +196,6 @@ public:
 	/** Creates an sprite with an CCBatchNode and a rect
 	*/
 	static CCSprite* spriteWithBatchNode(CCSpriteBatchNode *batchNode, const CCRect& rect);
-
 public:
 	virtual bool init(void);
 	virtual ~CCSprite(void);

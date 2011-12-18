@@ -53,3 +53,17 @@ build_*_xcode/
 xcschememanagement.plist
 build/
 .DS_Store
+
+# Ignore files built by bada
+.Simulator-Debug/
+.Target-Debug/
+.Target-Release/
+
+# Ignore files built by blackberry
+Simulator/
+Device-Debug/
+Device-Release/
+
+*.user
+*.sdf
+*.opensdf

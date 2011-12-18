@@ -5,6 +5,8 @@
 // android effect only support ogg
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 	#define EFFECT_FILE		"effect2.ogg"
+#elif( CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
+	#define EFFECT_FILE		"effect1.raw"
 #else
 	#define EFFECT_FILE		"effect1.wav"
 #endif // CC_PLATFORM_ANDROID
@@ -39,7 +41,12 @@ m_nSoundId(0)
 		"add background music volume",
 		"sub background music volume",
 		"add effects volume",
-		"sub effects volume"
+		"sub effects volume",
+		"pause effect",
+		"resume effect",
+		"pause all effects",
+		"resume all effects",
+		"stop all effects"
 	};
 
 	// add menu items for tests
@@ -49,8 +56,8 @@ m_nSoundId(0)
 
 	for (int i = 0; i < m_nTestCount; ++i)
 	{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_AIRPLAY)
-		CCLabelBMFont* label = CCLabelBMFont::bitmapFontAtlasWithString(testItems[i].c_str(),  "fonts/arial16.fnt");
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE)
+		CCLabelBMFont* label = CCLabelBMFont::labelWithString(testItems[i].c_str(),  "fonts/arial16.fnt");
 #else
         CCLabelTTF* label = CCLabelTTF::labelWithString(testItems[i].c_str(), "Arial", 24);
 #endif		
@@ -67,8 +74,8 @@ m_nSoundId(0)
 	setIsTouchEnabled(true);
 
 	// preload background music and effect
-	SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(std::string(CCFileUtils::fullPathFromRelativePath(MUSIC_FILE)).c_str());
-	SimpleAudioEngine::sharedEngine()->preloadEffect(std::string(CCFileUtils::fullPathFromRelativePath(EFFECT_FILE)).c_str());
+	SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic( CCFileUtils::fullPathFromRelativePath(MUSIC_FILE) );
+	SimpleAudioEngine::sharedEngine()->preloadEffect( CCFileUtils::fullPathFromRelativePath(EFFECT_FILE) );
     
     // set default volume
     SimpleAudioEngine::sharedEngine()->setEffectsVolume(0.5);
@@ -157,6 +164,21 @@ void CocosDenshionTest::menuCallback(CCObject * pSender)
 		// sub effects volume
 	case 13:
 		SimpleAudioEngine::sharedEngine()->setEffectsVolume(SimpleAudioEngine::sharedEngine()->getEffectsVolume() - 0.1);
+		break;
+	case 14:
+		SimpleAudioEngine::sharedEngine()->pauseEffect(m_nSoundId);
+		break;
+	case 15:
+		SimpleAudioEngine::sharedEngine()->resumeEffect(m_nSoundId);
+		break;
+	case 16:
+		SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+		break;
+	case 17:
+		SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+		break;
+	case 18:
+		SimpleAudioEngine::sharedEngine()->stopAllEffects();
 		break;
 	}
 	
