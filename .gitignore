@@ -63,3 +63,7 @@ build/
 Simulator/
 Device-Debug/
 Device-Release/
+
+*.user
+*.sdf
+*.opensdf
