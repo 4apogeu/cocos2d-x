@@ -15,7 +15,7 @@ copy_qnx_folder(){
     do
         file=$HELLOWORLD_ROOT/qnx/$file
         if [ -f $file ];then
-            echo $file
+            #echo $file
             cp $file $PROJECT_DIR/qnx
         fi
     done
@@ -29,7 +29,7 @@ copy_cpp_h_from_helloworld(){
         for file in `ls $HELLOWORLD_ROOT/Classes/* | grep -E '.(cpp|h|mk)' `
         do
             if [ -f $file ];then
-                echo $file
+                #echo $file
                 cp $file $PROJECT_DIR/Classes
             fi
         done
@@ -38,15 +38,15 @@ copy_cpp_h_from_helloworld(){
 
 # copy resources
 copy_resouces(){
-    if [ -d $PROJECT_DIR/Resources ]; then
-        echo "Resources folder exists, skip copying Resources folder!"
+    if [ -d $PROJECT_DIR/Resource ]; then
+        echo "Resource folder exists, skip copying Resource folder!"
     else
-        mkdir $PROJECT_DIR/Resources
+        mkdir $PROJECT_DIR/Resource
         
         for file in $HELLOWORLD_ROOT/Resource/*
         do
-            echo $file
-            cp $file $PROJECT_DIR/Resources
+            #echo $file
+            cp $file $PROJECT_DIR/Resource
         done
     fi
 }
@@ -60,7 +60,7 @@ modify_file_content(){
 }
 
 create_qnx_project(){
-    echo "input your project name:"
+    echo "Please input your project name:"
     read PROJECT_NAME
     PROJECT_DIR=`pwd`/$PROJECT_NAME
     
@@ -77,7 +77,7 @@ create_qnx_project(){
     modify_file_content bar-descriptor.xml
     copy_cpp_h_from_helloworld
     copy_resouces
-    echo "Congratulations, the '$PROJECT_NAME' project have been created successfully, please input the project from QNX IDE!"
+    echo "Congratulations, the '$PROJECT_NAME' project have been created successfully, please use QNX IDE to import the project!"
 }
 
 create_qnx_project

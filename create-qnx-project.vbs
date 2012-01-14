@@ -41,9 +41,9 @@ function ConfigureProject()
         fso.CreateFolder(szProjectName)
     end if
 
-    dim badaFolder
-    badaFolder = szProjectName + "\bada"
-    if (fso.FolderExists(badaFolder)) then
+    dim qnxFolder
+    qnxFolder = szProjectName + "\qnx"
+    if (fso.FolderExists(qnxFolder)) then
         msgRet = msgbox("The '"+szProjectName+"' project exists, can't override! Please input again!", 1, szPrompt)
         if (msgRet = 1) then
             call ConfigureProject
@@ -51,29 +51,26 @@ function ConfigureProject()
         Wcript.quit
     end if
 
-    dim szSrcClass, szSrcBada, szSrcResource
-    dim szDesClass, szDesBada, szDesResource
+    dim szSrcClass, szSrcQnx, szSrcResource
+    dim szDesClass, szDesQnx, szDesResource
     
     szSrcClass = "HelloWorld\Classes"
-    szSrcBada = "HelloWorld\bada"
+    szSrcQnx = "HelloWorld\qnx"
     szSrcResource = "HelloWorld\Resource"
     
     szDesClass = szProjectName+"\Classes"
-    szDesBada = szProjectName+"\bada"
+    szDesQnx = szProjectName+"\qnx"
     szDesResource = szProjectName+"\Resource"
     
     call CopyFolder(szSrcClass, szDesClass)
-    call CopyFolder(szSrcBada, szDesBada)
+    call CopyFolder(szSrcQnx, szDesQnx)
     call CopyFolder(szSrcResource, szDesResource)
     
-    dim i
-    for i=1 to 2
-        call ReplaceFileContent(szProjectName+"\bada\sdk"+cstr(i)+".0\application.xml", "HelloWorld", szProjectName)
-        call ReplaceFileContent(szProjectName+"\bada\sdk"+cstr(i)+".0\.project", "HelloWorld", szProjectName)
-        call ReplaceFileContent(szProjectName+"\bada\sdk"+cstr(i)+".0\.cproject", "HelloWorld", szProjectName)
-    next
-    
-    call msgbox("Congratulations, the '"+szProjectName+"' project have been created successfully, please input the project from Bada IDE!", 0, szPrompt)
+    call ReplaceFileContent(szProjectName+"\qnx\bar-descriptor.xml", "HelloWorld", szProjectName)
+    call ReplaceFileContent(szProjectName+"\qnx\.project", "HelloWorld", szProjectName)
+    call ReplaceFileContent(szProjectName+"\qnx\.cproject", "HelloWorld", szProjectName)
+
+    call msgbox("Congratulations, the '"+szProjectName+"' project have been created successfully, please use QNX IDE to import the project!", 0, szPrompt)
 
 end function
 
