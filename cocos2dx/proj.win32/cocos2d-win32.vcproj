@@ -643,10 +643,6 @@
 				RelativePath="..\include\cocos2d.h"
 				>
 			</File>
-			<File
-				RelativePath="..\include\selector_protocol.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="label_nodes"
@@ -838,6 +834,10 @@
 			<Filter
 				Name="win32"
 				>
+				<File
+					RelativePath="..\platform\win32\CCAccelerometer_win32.cpp"
+					>
+				</File>
 				<File
 					RelativePath="..\platform\win32\CCAccelerometer_win32.h"
 					>
