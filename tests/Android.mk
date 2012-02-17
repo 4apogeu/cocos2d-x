@@ -2,9 +2,9 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := game_shared
+LOCAL_MODULE := game_logic_static
 
-LOCAL_MODULE_FILENAME := libgame
+LOCAL_MODULE_FILENAME := libgame_logic
 
 LOCAL_SRC_FILES := \
 tests/AccelerometerTest/AccelerometerTest.cpp \
@@ -57,6 +57,8 @@ tests/DrawPrimitivesTest/DrawPrimitivesTest.cpp \
 tests/EaseActionsTest/EaseActionsTest.cpp \
 tests/EffectsAdvancedTest/EffectsAdvancedTest.cpp \
 tests/EffectsTest/EffectsTest.cpp \
+tests/ExtensionsTest/ExtensionsTest.cpp \
+tests/ExtensionsTest/NotificationCenterTest.cpp \
 tests/FontTest/FontTest.cpp \
 tests/HiResTest/HiResTest.cpp \
 tests/IntervalTest/IntervalTest.cpp \
@@ -93,13 +95,19 @@ tests/controller.cpp \
 tests/testBasic.cpp \
 AppDelegate.cpp
 
-LOCAL_STATIC_LIBRARIES := curl_static_prebuilt
+LOCAL_STATIC_LIBRARIES := png_static_prebuilt
+LOCAL_STATIC_LIBRARIES += xml2_static_prebuilt
+LOCAL_STATIC_LIBRARIES += jpeg_static_prebuilt
+LOCAL_STATIC_LIBRARIES += curl_static_prebuilt
+LOCAL_WHOLE_STATIC_LIBRARIES += cocos2dx_static
 
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)
                    
-LOCAL_SHARED_LIBRARIES := cocos2dx_shared cocosdenshion_shared box2d_shared chipmunk_shared
+LOCAL_SHARED_LIBRARIES := cocosdenshion_shared box2d_shared chipmunk_shared
             
-include $(BUILD_SHARED_LIBRARY)
+include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,cocos2dx/platform/third_party/android/modules/libcurl)
-                   
+$(call import-module,cocos2dx/platform/third_party/android/modules/libpng)
+$(call import-module,cocos2dx/platform/third_party/android/modules/libxml2)
+$(call import-module,cocos2dx/platform/third_party/android/modules/libjpeg)

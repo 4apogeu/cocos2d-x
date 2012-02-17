@@ -1084,6 +1084,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="extensions"
+			>
+			<File
+				RelativePath="..\extensions\CCNotificationCenter.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\extensions\CCNotificationCenter.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath="..\CCCamera.cpp"
 			>
