@@ -328,8 +328,16 @@ void CCDirector::setProjection(ccDirectorProjection kProjection)
         }
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(60, (GLfloat)size.width/size.height, 0.5f, 1500.0f);
-			
+		// accommodate iPad retina while keep backward compatibility
+		if (m_pobOpenGLView && m_pobOpenGLView->isIpad() && m_pobOpenGLView->getMainScreenScale() > 1.0)
+		{
+			gluPerspective(60, (GLfloat)size.width/size.height, zeye-size.height/2, zeye+size.height/2);	
+		}
+		else
+		{
+			gluPerspective(60, (GLfloat)size.width/size.height, 0.5f, 1500.0f);
+		}				
+		
 		glMatrixMode(GL_MODELVIEW);	
 		glLoadIdentity();
 		gluLookAt( size.width/2, size.height/2, zeye,
@@ -774,6 +782,12 @@ bool CCDirector::enableRetinaDisplay(bool enabled)
 
 	// setContentScaleFactor is not supported
 	if (! m_pobOpenGLView->canSetContentScaleFactor())
+	{
+		return false;
+	}
+
+	// SD device
+	if (m_pobOpenGLView->getMainScreenScale() == 1.0)
 	{
 		return false;
 	}
